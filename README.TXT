@@ -1,4 +1,14 @@
-This text describes how to check if system parts are on-line.
+# Gateway Project
+
+Project consists of 5 parts, 4 of which are date entry points, and the last one - is core processor and output point.
+All of the configuration option are present in gateway.properties.
+
+Data routes:
+1. [email|ftp|http|soap] -> router -> mongo
+2. mongo -> router -> output
+
+------------------------------------
+How to check if system parts are on-line:
 
 * Router
 Call REST method '/api/v1/1c/test/version' on the supposed to be on-line host
