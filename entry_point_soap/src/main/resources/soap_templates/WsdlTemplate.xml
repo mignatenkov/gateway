@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'
+	xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:tns='urn:xml_receive'
+	xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+	xmlns='http://schemas.xmlsoap.org/wsdl/' targetNamespace='urn:xml_receive'>
+
+	<types>
+		<xsd:schema targetNamespace='urn:xml_receive'>
+			<xsd:import namespace='http://schemas.xmlsoap.org/soap/encoding/' />
+			<xsd:import namespace='http://schemas.xmlsoap.org/wsdl/' />
+		</xsd:schema>
+	</types>
+
+	<message name='xml_receiveRequest'>
+		<part name='filename' type='xsd:string' />
+		<part name='content' type='xsd:string' />
+		<part name='hash' type='xsd:string' />
+	</message>
+
+	<message name='xml_receiveResponse'>
+		<part name='return' type='xsd:string' />
+	</message>
+
+	<portType name='xml_receivePortType'>
+		<operation name='xml_receive'>
+			<documentation>Receive PNR XML file</documentation>
+			<input message='tns:xml_receiveRequest' />
+			<output message='tns:xml_receiveResponse' />
+		</operation>
+	</portType>
+
+	<binding name='xml_receiveBinding' type='tns:xml_receivePortType'>
+		<soap:binding style='rpc'
+			transport='http://schemas.xmlsoap.org/soap/http' />
+		<operation name='xml_receive'>
+			<soap:operation soapAction='urn:xml_receive#xml_receive'
+				style='rpc' />
+			<input>
+				<soap:body use='encoded' namespace='urn:xml_receive'
+					encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+			</input>
+			<output>
+				<soap:body use='encoded' namespace='urn:xml_receive'
+					encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+			</output>
+		</operation>
+	</binding>
+
+	<service name='xml_receive'>
+		<port name='xml_receivePort' binding='tns:xml_receiveBinding'>
+			<soap:address location='http://@HOST@:@PORT@/@URL@' />
+		</port>
+	</service>
+</definitions>
